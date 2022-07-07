@@ -632,13 +632,29 @@ function saveChanges() {
 
 
 
+var counter = 0
 
+function closeInfo() {
+  document.getElementById('onmobile').classList.remove('show');
+  document.getElementById('onmobile').setAttribute('style',"");
+}
 
+document.addEventListener('touchstart', function(e) { //'touchmove'
+  if (counter == 0) {
+    document.getElementById('onmobile').classList.add('show');
+    document.getElementById('onmobile').setAttribute('style',"display: block");
+    counter++;
 
+    document.querySelectorAll('.btn-sm').forEach(b => {
+      b.setAttribute('style','padding:0;')
+    })
 
+  }
 
-document.addEventListener('touchmove', function(e) { e.preventDefault(); }, { passive:false });
-
+  //e.preventDefault(); 
+}, 
+//{ passive:false }
+);
 
 
 //'use strict';
