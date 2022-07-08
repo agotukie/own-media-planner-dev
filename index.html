@@ -12,28 +12,15 @@
 </head>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
-<body class="dark-theme">
+<body class="dark-theme d-flex flex-column min-vh-100">
   <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js'></script>
 
 
-  <div id="onmobile" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
-          <button onclick="closeInfo()"  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          application not optimized for mobile devices
-        </div>
   
-      </div>
-    </div>
-  </div>
   
-
-<div class="container">
-  <nav style="background: var(--myblue); padding-top: 0px; padding-bottom: 0px; border-radius: 10px;" class="navbar navbar-expand-lg navbar-light">
+  <!-- Menu -->
+  <nav style="background: var(--myblue); padding-top: 0px; padding-bottom: 0px;" class="navbar navbar-expand-lg navbar-light">
+    <div class="container" style="padding-top: 0">
     <div class="container-fluid">
       <div class="row">
       <div class="col">
@@ -42,6 +29,11 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
+        <button type="button" class="btn btn-dark text-nowrap overflow-hidden" data-bs-toggle="modal" data-bs-target="#miniTut"  style="margin: 5px;">
+          quick start
+        </button>
+
     </div>
     <div class="col">
       <div class="collapse navbar-collapse  justify-content-center" id="navbarNav">
@@ -67,10 +59,81 @@
       </div>
             
     </div>
+  </div>
   </nav>
+
+
+
+
+
+<!-- Modal Quick start -->
+<div class="modal fade" id="miniTut" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">quick introduction</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <p>move items from the menu to the calendar</p>
+              <img src="baner11111.png" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+              <p>move items within the calendar to test different sceranios</p>
+              <img src="baner2.png" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+              <p>click to estimate reached awareness</p>
+              <img src="baner33.png" class="d-block w-100" alt="...">
+            </div>
+          </div>
+
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+      </div>-->
+    </div>
+  </div>
 </div>
 
 
+
+
+
+
+<!-- Modal Mobile -->
+  <div id="onmobile" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
+          <button onclick="closeInfo()"  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          application not optimized for mobile devices
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
 
 
 
@@ -86,10 +149,11 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item"><strong>how to plan actions</strong>
             <br>&#9642; move items from the menu to the calendar 
-            <br>&#9642; click the purple button to calculate the reach
+            <br>&#9642; click the blue button to calculate the reach
             <br>&#9642; blue bars show the level of reach/awareness 
             <br>&#9642; to test different scenarios you can move items within the calendar 
-            <br>&#9642; to recalculate reach press the purple button again 
+            <br>&#9642; to remove items from calendar move them out of calendar 
+            <br>&#9642; to recalculate reach press the blue button again 
           </li>
           <li class="list-group-item"><strong>how it works</strong>
             <br>&#9642; each action/touchpoint generates some awareness 
@@ -158,9 +222,8 @@
   
 
 <!---->
-<div class="container">
+<div class="container" style="padding-top: 5px;">
 
-  
 <div class="row">
   <div class="col-md">
   <div class="area">
@@ -406,7 +469,14 @@
 </div>     
 </div>
 
-  
+ <footer class="mt-auto" style="padding-top: 5px;">
+  <div  style="height: 31px ; background: var(--myblue);">
+    <div class="d-flex justify-content-center" style="padding: 3px">
+      copyrigt 2022
+    </div>
+  </div>  
+</footer>
+
 
   <script src="app.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
