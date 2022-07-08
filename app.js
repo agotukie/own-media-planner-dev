@@ -657,6 +657,14 @@ document.addEventListener('touchstart', function(e) { //'touchmove'
 );
 
 
+
+var myModal = new bootstrap.Modal(document.getElementById('miniTut'), {
+  keyboard: false
+})
+
+myModal.toggle()
+
+
 //'use strict';
 
 document.addEventListener('DOMContentLoaded', function() {
