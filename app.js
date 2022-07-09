@@ -647,8 +647,41 @@ function adjustmentForMobile() {
     myModal.hide()
     //hide menu
     document.querySelector('.navbar').setAttribute('style','display: none')
+    document.querySelector('.tasks').parentElement.parentElement.setAttribute('style','display: none')
 
-    //hide accordion
+
+    var igpost = document.querySelector('.IGpost')
+    var igpost2 = igpost.cloneNode(true)
+    var igpost3 = igpost.cloneNode(true)
+
+    var igreel = document.querySelector('.IGreels')
+    var igreel2 = igreel.cloneNode(true)
+    var igreel3 = igreel.cloneNode(true)
+
+    var ttpost = document.querySelector('.TTpost')
+    var ttpost2 = ttpost.cloneNode(true)
+    var ttpost3 = ttpost.cloneNode(true)
+
+    var ytvideo = document.querySelector('.YTvideo')
+    var ytvideo2 = ytvideo.cloneNode(true)
+    var ytvideo3 = ytvideo.cloneNode(true)
+
+    kalen.querySelectorAll('tr')[3].querySelectorAll('td')[0].appendChild(igpost2)
+    kalen.querySelectorAll('tr')[3].querySelectorAll('td')[3].appendChild(igpost3)
+
+    kalen.querySelectorAll('tr')[2].querySelectorAll('td')[4].appendChild(igreel2)
+    kalen.querySelectorAll('tr')[4].querySelectorAll('td')[4].appendChild(igreel3)
+
+    kalen.querySelectorAll('tr')[4].querySelectorAll('td')[1].appendChild(ytvideo2)
+    kalen.querySelectorAll('tr')[6].querySelectorAll('td')[1].appendChild(ytvideo3)
+
+    kalen.querySelectorAll('tr')[3].querySelectorAll('td')[5].appendChild(ttpost2)
+    kalen.querySelectorAll('tr')[6].querySelectorAll('td')[5].appendChild(ttpost3)
+
+
+
+
+    /*//hide accordion
     var but1 = document.getElementById('buttonStan')
     but1.setAttribute('style','display: none')
     Array.from(but1.children).forEach(b => {
@@ -663,8 +696,8 @@ function adjustmentForMobile() {
     //hide additional
     document.querySelectorAll('.additional').forEach(b => {
       b.setAttribute('style','display: none')
-    })
-
+    })*/
+    
     //move button up
     document.getElementById('buttonForMobile').querySelector('button').setAttribute('style','background-color: var(--mypurple)')
     document.getElementById('buttonForDesktop').querySelector('button').setAttribute('style','display: none')
