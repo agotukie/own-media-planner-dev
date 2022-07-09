@@ -690,6 +690,7 @@ if (isMob()) {
 document.addEventListener('touchstart', function(e) { //'touchmove'
   adjustmentForMobile();
   e.preventDefault(); 
+  e.stopPropagation();
 }, 
 //{ passive:false }
 );
