@@ -84,15 +84,15 @@
           <div class="carousel-inner">
             <div class="carousel-item active">
               <p>move items from the menu to the calendar</p>
-              <img src="baner11111.png" class="d-block w-100" alt="...">
+              <img src="baner01.png" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
               <p>move items within the calendar to test different sceranios</p>
-              <img src="baner2.png" class="d-block w-100" alt="...">
+              <img src="baner02.png" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
               <p>click to estimate reached awareness</p>
-              <img src="baner33.png" class="d-block w-100" alt="...">
+              <img src="baner03.png" class="d-block w-100" alt="...">
             </div>
           </div>
 
@@ -121,7 +121,7 @@
 <!-- Modal Mobile -->
   <div id="onmobile" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" style="background-color: var(--myred);">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
           <button onclick="closeInfo()"  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -137,7 +137,7 @@
 
 
 
-<!-- Modal1 -->
+<!-- Modal Info -->
 <div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog  modal-xl">
     <div class="modal-content">
@@ -149,11 +149,11 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item"><strong>how to plan actions</strong>
             <br>&#9642; move items from the menu to the calendar 
-            <br>&#9642; click the blue button to calculate the reach
+            <br>&#9642; click the purple button to calculate the reach
             <br>&#9642; blue bars show the level of reach/awareness 
             <br>&#9642; to test different scenarios you can move items within the calendar 
             <br>&#9642; to remove items from calendar move them out of calendar 
-            <br>&#9642; to recalculate reach press the blue button again 
+            <br>&#9642; to recalculate reach press the purple button again 
           </li>
           <li class="list-group-item"><strong>how it works</strong>
             <br>&#9642; each action/touchpoint generates some awareness 
@@ -188,7 +188,7 @@
   </div>
 </div>
 
-<!-- Modal2 -->
+<!-- Modal Action Settings -->
 <div class="modal fade" id="modalAction" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog ">
     <div class="modal-content">
@@ -383,6 +383,10 @@
   <!--<div class="container">-->
     <div class="col-md">
     <div class="area">
+      
+    <div  id="buttonForMobile" class="d-flex justify-content-end">
+      <button style="display: none; background-color: var(--mypurple);" type="button" class="btn btn-secondary" onclick="collectData()">calculate reach</button>
+    </div>
 
     <table class="table table-bordered" id="kalendarz">
       <thead style="background-color: black; color: white ;">
@@ -461,7 +465,7 @@
     </table>
   </div>
   <!--</div>-->
-  <div  class="d-flex justify-content-center">
+  <div id="buttonForDesktop" class="d-flex justify-content-center">
     <button style="background-color: #6a4c93;" type="button" class="btn btn-secondary" onclick="collectData()">calculate reach</button>
   </div>
    
