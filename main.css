@@ -9,6 +9,10 @@
 }
 
 
+body {
+  overscroll-behavior-y: contain;
+}
+
 #kalendarz td {
   padding-top: 25px !important;
 }
