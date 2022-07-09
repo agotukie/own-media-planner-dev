@@ -634,12 +634,7 @@ function saveChanges() {
 
 var counter = 0
 
-function closeInfo() {
-  document.getElementById('onmobile').classList.remove('show');
-  document.getElementById('onmobile').setAttribute('style',"");
-}
-
-document.addEventListener('touchstart', function(e) { //'touchmove'
+function adjustmentForMobile() {
   if (counter == 0) {
     document.getElementById('onmobile').classList.add('show');
     document.getElementById('onmobile').setAttribute('style',"display: block");
@@ -649,12 +644,56 @@ document.addEventListener('touchstart', function(e) { //'touchmove'
       b.setAttribute('style','padding:0;')
     })
 
-  }
+    myModal.hide()
+    //hide menu
+    document.querySelector('.navbar').setAttribute('style','display: none')
 
-  //e.preventDefault(); 
+    //hide accordion
+    var but1 = document.getElementById('buttonStan')
+    but1.setAttribute('style','display: none')
+    Array.from(but1.children).forEach(b => {
+      b.setAttribute('style','display: none')
+    })
+    var but2 = document.getElementById('buttonAddi')
+    but2.setAttribute('style','display: none')
+    Array.from(but2.children).forEach(b => {
+      b.setAttribute('style','display: none')
+    })
+
+    //hide additional
+    document.querySelectorAll('.additional').forEach(b => {
+      b.setAttribute('style','display: none')
+    })
+
+    //move button up
+    document.getElementById('buttonForMobile').querySelector('button').setAttribute('style','background-color: var(--mypurple)')
+    document.getElementById('buttonForDesktop').querySelector('button').setAttribute('style','display: none')
+
+  }
+}
+
+
+function closeInfo() {
+  document.getElementById('onmobile').classList.remove('show');
+  document.getElementById('onmobile').setAttribute('style',"");
+}
+
+
+function isMob() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+if (isMob()) {
+  adjustmentForMobile();
+}
+
+document.addEventListener('touchstart', function(e) { //'touchmove'
+  adjustmentForMobile();
+  e.preventDefault(); 
 }, 
 //{ passive:false }
 );
+
 
 
 
