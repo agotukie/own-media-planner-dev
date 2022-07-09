@@ -679,13 +679,13 @@ function closeInfo() {
 }
 
 
-function isMob() {
+/*function isMob() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
 if (isMob()) {
   adjustmentForMobile();
-}
+}*/
 
 document.addEventListener('touchstart', function(e) { //'touchmove'
   adjustmentForMobile();
