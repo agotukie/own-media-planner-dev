@@ -1,263 +1,193 @@
-function buttonAddi(obj) {
-  //console.log(obj)
-  var addiActionP = document.querySelectorAll('.tasks p.additional');
-  var addiActionD = document.querySelectorAll('.tasks div.additional');
-  var addiActionS = document.querySelectorAll('.tasks span.additional');
-  var addiActionSvg = document.querySelectorAll('.tasks #buttonAddi svg');
+/*************accordions ** start***************/
+var addiActionP = document.querySelectorAll('.tasks p.additional');
+var addiActionD = document.querySelectorAll('.tasks div.additional');
+var addiActionS = document.querySelectorAll('.tasks span.additional');
+var addiActionSvg = document.querySelectorAll('.tasks #buttonAddi svg');
 
-  addiActionSvg.forEach(element => {
-    if (element.style.display === "none") {
-      element.style.display = "";
-    } else {
-      element.style.display = "none";
-    } }
-  )
+var stanActionP = document.querySelectorAll('.tasks p.standard');
+var stanActionD = document.querySelectorAll('.tasks div.standard');
+var stanActionS = document.querySelectorAll('.tasks span.standard');
+var stanActionSvg = document.querySelectorAll('.tasks #buttonStan svg');
 
-  addiActionP.forEach(element => {
-    if (element.style.display === "none") {
-      element.style.display = "";
-    } else {
-      element.style.display = "none";
-    } }
-  )
-
-  addiActionD.forEach(element => {
-    if (element.style.display === "none") {
-      element.style.display = "";
-    } else {
-      element.style.display = "none";
-    } }
-  )
-
-  addiActionS.forEach(element => {
-    if (element.style.display === "none") {
-      element.style.display = "";
-    } else {
-      element.style.display = "none";
-    } }
-  )
-
+function displayNone(element) {
+  if (element.style.display === "none") {
+    element.style.display = "";
+  } else {
+    element.style.display = "none";
+  } 
 }
 
+function buttonAddi(obj) {
+  addiActionSvg.forEach(displayNone)
+  addiActionP.forEach(displayNone)
+  addiActionD.forEach(displayNone)
+  addiActionS.forEach(displayNone)
+}
 
 function buttonStan(obj) {
-  //console.log(obj)
-  var stanActionP = document.querySelectorAll('.tasks p.standard');
-  var stanActionD = document.querySelectorAll('.tasks div.standard');
-  var stanActionS = document.querySelectorAll('.tasks span.standard');
-  var stanActionSvg = document.querySelectorAll('.tasks #buttonStan svg');
-
-  stanActionSvg.forEach(element => {
-    if (element.style.display === "none") {
-      element.style.display = "";
-    } else {
-      element.style.display = "none";
-    } }
-  )
-
-  stanActionD.forEach(element => {
-    if (element.style.display === "none") {
-      element.style.display = "";
-    } else {
-      element.style.display = "none";
-    } }
-  )
-
-  stanActionP.forEach(element => {
-    if (element.style.display === "none") {
-      element.style.display = "";
-    } else {
-      element.style.display = "none";
-    } }
-  )
-
-  stanActionS.forEach(element => {
-    if (element.style.display === "none") {
-      element.style.display = "";
-    } else {
-      element.style.display = "none";
-    } }
-  )
-
+  stanActionSvg.forEach(displayNone)
+  stanActionD.forEach(displayNone)
+  stanActionP.forEach(displayNone)
+  stanActionS.forEach(displayNone)
 }
+/*************accordions ** end***************/
 
+
+
+/*************calendar ** start***************/
 var months1 = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 var months2 = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"];
+var kalen = document.getElementById('calendar');
+var lastDay = 31;
+var numberOfDays = 35;
+var labels = Array(numberOfDays).fill(0)
 
-var ostatniDzien = 31;
-var kalen = document.getElementById('kalendarz');
+function numberOfWeeks(m,r) {
+  var firstDay = new Date(r, m, 1);
+  var lastDay = new Date(r, m + 1, 0);
+  var startDate = new Date(r, 0, 1);
 
-
-
-
-function liczbaTygodni(m,r) {
-  //currentDate = new Date();
-    var pierwszyDzien = new Date(r, m, 1);
-    var ostatniDzien = new Date(r, m + 1, 0);
-    var startDate = new Date(r, 0, 1);
-
-    var days1 = Math.floor((pierwszyDzien - startDate) / (24 * 60 * 60 * 1000));
-    var days2 = Math.floor((ostatniDzien - startDate) / (24 * 60 * 60 * 1000));
+  var days1 = Math.floor((firstDay - startDate) / (24 * 60 * 60 * 1000));
+  var days2 = Math.floor((lastDay - startDate) / (24 * 60 * 60 * 1000));
          
-    var weekNumber1 = Math.ceil(days1 / 7);
-    var weekNumber2 = Math.ceil(days2 / 7);
-    //console.log('liczba tygodni: ' + (weekNumber2-weekNumber1))
-    return (weekNumber2-weekNumber1)
+  var weekNumber1 = Math.ceil(days1 / 7);
+  var weekNumber2 = Math.ceil(days2 / 7);
+  //console.log('liczba tygodni: ' + (weekNumber2-weekNumber1))
+  return (weekNumber2-weekNumber1)
 }
 
-var liczbaDni = 35;
-var labels = Array(liczbaDni).fill(0)
+function removeP(p) {
+  p.remove();
+}
 
 function fillCalendar(currentTime) {
  
-  var dzienTyg = currentTime.getDay()
-  var miesiac = currentTime.getMonth()
-  var rok = currentTime.getFullYear()
+  var monthNumber = currentTime.getMonth()
+  var yearNumber = currentTime.getFullYear()
+  var weeksCount = numberOfWeeks(monthNumber,yearNumber);
+  var weeksInTable = kalen.querySelector('tbody').querySelectorAll('tr').length
 
-  var noTyg = liczbaTygodni(miesiac,rok);
-  var tygodnieWtabeli = kalen.querySelector('tbody').querySelectorAll('tr').length
-
-  if (noTyg == 4) {
-    liczbaDni = 35;
-    if (tygodnieWtabeli >5 ) {
+  if (weeksCount == 4) {
+    numberOfDays = 35;
+    if (weeksInTable >5 ) {
       kalen.querySelector('tbody').removeChild(kalen.querySelector('tbody').lastElementChild)
     }
-  } else if (noTyg == 5 ) {
-    liczbaDni = 42;
-    if (tygodnieWtabeli == 5) {
-    
-    var nowyWiersz = document.createElement("tr");
-
-    nowyWiersz.setAttribute("style", "height: 58px;");
-    nowyWiersz.innerHTML = `<td class="position-relative"></td>
+  } else if (weeksCount == 5 ) {
+    numberOfDays = 42;
+    if (weeksInTable == 5) {
+    var newLine = document.createElement("tr");
+    newLine.setAttribute("style", "height: 58px;");
+    newLine.innerHTML = `<td class="position-relative"></td>
                             <td class="position-relative"></td>
                             <td class="position-relative"></td>
                             <td class="position-relative"></td>
                             <td class="position-relative"></td>
                             <td class="position-relative"></td>
                             <td class="position-relative"></td>` 
-    kalen.querySelector('tbody').appendChild(nowyWiersz)
+    kalen.querySelector('tbody').appendChild(newLine)
     }
-
   }
 
+  var first = new Date(yearNumber, monthNumber, 1)
+  var whereFirst = first.getDay()
   
-
-  var pierwszy = new Date(rok, miesiac, 1)
-  var gdziePierwszy = pierwszy.getDay() //dzien tygodnia pierwszy
-
-  if (gdziePierwszy == 0) {
-    gdziePierwszy = 7
+  if (whereFirst == 0) {
+    whereFirst = 7
   }
 
-
-  var ostatni = new Date(rok, miesiac + 1, 0);
-  ostatniDzien = ostatni.getDate()
-  //console.log('gdzie pierwszy: ' + gdziePierwszy + ', ostatni dzien: ' + ostatniDzien)
-
+  var last = new Date(yearNumber, monthNumber + 1, 0);
+  lastDay = last.getDate()
+  var dayNumber = 1;
+  var valueNumber = 1;
+  var oldData = kalen.children[1].querySelectorAll('p');
   
-  var dzien = 1;
-  var wartosc = 1;
-
-  document.getElementById('month').innerText = months1[miesiac]
-
-
- //usunąc p jeżeli są
-  function usun(co) {
-    co.remove();
+  if (oldData.length > 0 ) {
+    oldData.forEach(removeP)
   }
 
-  var poprzednieDane = kalen.children[1].querySelectorAll('p');
-  if (poprzednieDane.length > 0 ) {
-    poprzednieDane.forEach(usun)
-  }
+  var day2= new Date(yearNumber, monthNumber, -whereFirst+2)
+  var day22 = day2.getDate();
 
-
-  var dzien2= new Date(rok, miesiac, -gdziePierwszy+2)
-  var dzien22 = dzien2.getDate();
-
-  for (var g = 1; g <= liczbaDni/7; g++) {
-    var wiersz = kalen.querySelectorAll('tr')[g+1]
-    var mies = 0;
+  for (var g = 1; g <= numberOfDays/7; g++) {
+    var line = kalen.querySelectorAll('tr')[g+1]
+    var mon = 0;
     var d3 = 1;
     
     for (var h=0; h<7; h++){
       if (g==1){
-        if (h<(gdziePierwszy-1)){
-          wartosc = dzien22;
-          mies = 0;
-          dzien22++
+        if (h<(whereFirst-1)){
+          valueNumber = day22;
+          mon = 0;
+          day22++
         } else  {
-          wartosc = dzien;
-          dzien++;
-          mies = 1;
+          valueNumber = dayNumber;
+          dayNumber++;
+          mon = 1;
         } 
-      } else if (dzien <= ostatniDzien) {
-        wartosc = dzien;
-        dzien++;
-        mies = 1;
+      } else if (dayNumber <= lastDay) {
+        valueNumber = dayNumber;
+        dayNumber++;
+        mon = 1;
       } else {
-        wartosc = d3;
+        valueNumber = d3;
         d3++;
-        mies = 0;
+        mon = 0;
       }
-      labels[(g-1)*7 + h]=wartosc;
+      labels[(g-1)*7 + h]=valueNumber;
 
       var input = document.createElement("p");
       input.classList.add("position-absolute", "top-0", "end-0");
-      input.innerHTML =  wartosc 
-      wiersz.querySelectorAll('td')[h].appendChild(input)
+      input.innerHTML =  valueNumber 
+      line.querySelectorAll('td')[h].appendChild(input)
 
-      if (mies == 1){
-        wiersz.querySelectorAll('td')[h].setAttribute('style','background-color: white;')
+      if (mon == 1){
+        line.querySelectorAll('td')[h].setAttribute('style','background-color: white;')
       } else {
-        wiersz.querySelectorAll('td')[h].setAttribute('style','background-color: transparent;')
+        line.querySelectorAll('td')[h].setAttribute('style','background-color: #eee;')
       }
     }
-
   }
-
 }
-
-
-
-
 
 function changeMonth(obj) {
-  //console.log(obj.value)
-  var nowyMiesiac = parseInt(obj.value);
-  //console.log('nowymiesiac: ', nowyMiesiac)
-  var nowaData = new Date(2022, nowyMiesiac, 1)
+  var dateSelected = obj.value
+  var nowaData = new Date(dateSelected.substring(0,4), dateSelected.substring(4,7), 1)
   fillCalendar(nowaData);
 }
+/*************calendar ** end***************/
 
 
 
+
+
+
+/*************calculating reach ** start***************/
 var reg = ''
 var mid = ''
 var sup = ''
 var war = [0,0,0]
 var adstock = [0.5, 0.3, 0.2];
-var zmienne = [[],[],[]] //Array(ostatniDzien).fill(0)
-//var zmienne = [Array(ostatniDzien-1).fill(0),Array(ostatniDzien-1).fill(0),Array(ostatniDzien-1).fill(0)] 
-var dzien = 1;
-var zmienneAds = [[],[],[]] 
+var data = [[],[],[]] //Array(lastDay).fill(0)
+
+var dayNumber = 1;
+var dataAds = [[],[],[]] 
 var iii = 0
 var kkk = 0;
 
-var zasiegTot = []
-var zasiegReg = []
-var zasiegMid = []
-var zasiegSup = []
-
-var zasięgRegIMid = []
-var zasiegMidAdd = []
-var zasiegSupAdd = []
-
-var zasiegTylkoMid = []
-var zasiegTylkoSup = []
+var reachTot = []
+var reachReg = []
+var reachMid = []
+var reachSup = []
+var reachRegAndMid = []
+var reachMidAdd = []
+var reachSupAdd = []
+var reachOnlyMid = []
+var reachOnlySup = []
 var reachPerCent = []
 
+//counting max reach
+let max= a=> a.reduce((m,x)=> m>x ? m:x);
+let sum= a=> a.reduce((m,x)=> m + x, 0);
 var maxToTable = 1;
 var maxToChart = 1;
 
@@ -266,81 +196,124 @@ function powerCheck(obj) {
   reg = obj.classList.contains('reg');
   mid = obj.classList.contains('mid');
   sup = obj.classList.contains('sup');
-  zmienne[0][(iii-2)*7+kkk] += reg;
-  zmienne[1][(iii-2)*7+kkk] += mid;
-  zmienne[2][(iii-2)*7+kkk] += sup;
+  data[0][(iii-2)*7+kkk] += reg;
+  data[1][(iii-2)*7+kkk] += mid;
+  data[2][(iii-2)*7+kkk] += sup;
   }
 
 
 function collectData() {
-  zmienne = [Array(liczbaDni).fill(0),Array(liczbaDni).fill(0),Array(liczbaDni).fill(0)]
-  zmienneAds = [Array(liczbaDni).fill(0),Array(liczbaDni).fill(0),Array(liczbaDni).fill(0)] 
+  data = [Array(numberOfDays).fill(0),Array(numberOfDays).fill(0),Array(numberOfDays).fill(0)]
+  dataAds = [Array(numberOfDays).fill(0),Array(numberOfDays).fill(0),Array(numberOfDays).fill(0)] 
 
-//collecting data
-  for (iii = 2; iii <= (liczbaDni/7)+1 ; iii++) {
+  //collecting data
+  for (iii = 2; iii <= (numberOfDays/7)+1 ; iii++) {
     for (kkk = 0; kkk <7; kkk++) {
 
-        var akcje = kalen.querySelectorAll('tr')[iii].querySelectorAll('td')[kkk].querySelectorAll('span')
-        var ileAkcji = akcje.length
+        var points = kalen.querySelectorAll('tr')[iii].querySelectorAll('td')[kkk].querySelectorAll('span')
+        var numPoints = points.length
 
-        if (ileAkcji > 0){
-          //console.log(iii, kkk)
-          akcje.forEach(powerCheck)
+        if (numPoints > 0){
+          points.forEach(powerCheck)
         }
     }
   }
 
   //counting adstock
-  for (var d = 0; d < liczbaDni; d++){
-    (d == 0) ? zmienneAds[0][d] += zmienne[0][d] : zmienneAds[0][d] += (zmienne[0][d] + adstock[0]* (zmienneAds[0][d-1])) ;
-    (d == 0) ? zmienneAds[1][d] += zmienne[1][d] : zmienneAds[1][d] += (zmienne[1][d] + adstock[1]* (zmienneAds[1][d-1])) ;
-    (d == 0) ? zmienneAds[2][d] += zmienne[2][d] : zmienneAds[2][d] += (zmienne[2][d] + adstock[2]* (zmienneAds[2][d-1])) ;
+  for (var d = 0; d < numberOfDays; d++){
+    (d == 0) ? dataAds[0][d] += data[0][d] : dataAds[0][d] += (data[0][d] + adstock[0]* (dataAds[0][d-1])) ;
+    (d == 0) ? dataAds[1][d] += data[1][d] : dataAds[1][d] += (data[1][d] + adstock[1]* (dataAds[1][d-1])) ;
+    (d == 0) ? dataAds[2][d] += data[2][d] : dataAds[2][d] += (data[2][d] + adstock[2]* (dataAds[2][d-1])) ;
   }
 
   //rounding
-  for (var d = 0; d < liczbaDni; d++){
-    zmienneAds[0][d] = Math.round((zmienneAds[0][d] + Number.EPSILON) * 100 )/ 100;
-    zmienneAds[1][d] = Math.round((zmienneAds[1][d] + Number.EPSILON) * 100 )/ 100;
-    zmienneAds[2][d] = Math.round((zmienneAds[2][d] + Number.EPSILON) * 100 )/ 100;
+  for (var d = 0; d < numberOfDays; d++){
+    dataAds[0][d] = Math.round((dataAds[0][d] + Number.EPSILON) * 100 )/ 100;
+    dataAds[1][d] = Math.round((dataAds[1][d] + Number.EPSILON) * 100 )/ 100;
+    dataAds[2][d] = Math.round((dataAds[2][d] + Number.EPSILON) * 100 )/ 100;
   }
 
   var coefReg = 0.3;
   var coefMid = 0.45;
   var coefSup = 0.6;
 
-
-
-
   //counting reach
-  for (wiersz = 0; wiersz < liczbaDni; wiersz++){
+  for (var r = 0; r < numberOfDays; r++){
 
-    //całkowity zasięg
-    zasiegTot[wiersz] = (zmienneAds[0][wiersz]*coefReg + zmienneAds[1][wiersz]*coefMid + zmienneAds[2][wiersz]*coefSup)/(1.5 + zmienneAds[0][wiersz] + zmienneAds[1][wiersz] + zmienneAds[2][wiersz])
+    //total reach
+    reachTot[r] = (dataAds[0][r]*coefReg + dataAds[1][r]*coefMid + dataAds[2][r]*coefSup)/(1.5 + dataAds[0][r] + dataAds[1][r] + dataAds[2][r])
 
-    //zasięg reg + mid    
-    zasięgRegIMid[wiersz] = (zmienneAds[0][wiersz]*coefReg + zmienneAds[1][wiersz]*coefMid )/(1.5 + zmienneAds[0][wiersz] + zmienneAds[1][wiersz] )
-
-    //pojedyncze zasięgi
-    zasiegReg[wiersz] = (zmienneAds[0][wiersz]*coefReg )/(1.5 + zmienneAds[0][wiersz] )
-    zasiegMid[wiersz] = (zmienneAds[1][wiersz]*coefMid )/(1.5 + zmienneAds[1][wiersz] )
-    zasiegSup[wiersz] = (zmienneAds[2][wiersz]*coefSup )/(1.5 + zmienneAds[2][wiersz] )
     
-    //zasięg dodany przez medium
-    zasiegMidAdd[wiersz] = zasięgRegIMid[wiersz] - zasiegReg[wiersz]
-    zasiegSupAdd[wiersz] = zasiegTot[wiersz] - zasięgRegIMid[wiersz]
+    //reach reg + mid    
+    reachRegAndMid[r] = (dataAds[0][r]*coefReg + dataAds[1][r]*coefMid )/(1.5 + dataAds[0][r] + dataAds[1][r] )
 
-    //utracony
-    zasiegTylkoMid[wiersz] = zasiegMid[wiersz] - zasiegMidAdd[wiersz]
-    zasiegTylkoSup[wiersz] = zasiegSup[wiersz] - zasiegSupAdd[wiersz]
+    //separate reach
+    reachReg[r] = (dataAds[0][r]*coefReg )/(1.5 + dataAds[0][r] )
+    reachMid[r] = (dataAds[1][r]*coefMid )/(1.5 + dataAds[1][r] )
+    reachSup[r] = (dataAds[2][r]*coefSup )/(1.5 + dataAds[2][r] )
+    
+    //added reach
+    reachMidAdd[r] = reachRegAndMid[r] - reachReg[r]
+    reachSupAdd[r] = reachTot[r] - reachRegAndMid[r]
+
+    //lost reach
+    reachOnlyMid[r] = reachMid[r] - reachMidAdd[r]
+    reachOnlySup[r] = reachSup[r] - reachSupAdd[r]
     
   }
 
+  //counting max reach
+  maxToTable = max(reachTot);
+  maxToChart = max(reachTot) + 0.05 - max(reachTot)%0.05;
 
-  let max= a=> a.reduce((m,x)=> m>x ? m:x);
-  maxToTable = max(zasiegTot);
-  maxToChart = max(zasiegTot) + 0.05 - max(zasiegTot)%0.05;
+  //per cent to color table with blue
+  /*reachPerCent = [...reachTot]
+  if (maxToTable != 0) {
+    reachPerCent.forEach(function (el,i) {
+      reachPerCent[i] = el/maxToTable;
+    })
+  }*/
+  
+  //heightOfRowsTable();
+  //colorTable(reachPerCent);
 
-  reachPerCent = [...zasiegTot]
+}
+
+
+
+
+
+function heightOfRowsTable() {
+  var rows = kalen.querySelector('tbody').querySelectorAll('tr');
+  var rowsHeight = 58;
+  
+  rows.forEach(element => {
+    element.setAttribute('style','height: 58px'); 
+  })
+  
+  rows.forEach(element => {
+    if (element.offsetHeight > rowsHeight) {
+      rowsHeight = element.offsetHeight; 
+    }
+  })
+
+  rows.forEach(element => {
+    element.setAttribute('style','height: ' + rowsHeight + 'px'); 
+  })
+
+};
+
+
+var proc = 1;
+var secondColorVal = 'white';
+var secondColor = 'white';
+var firstColor = '#1982c4'; //'#0dcaf0' //'rgb(91, 192, 235)'
+
+function colorTable() {
+  collectData();
+  heightOfRowsTable();
+
+  reachPerCent = [...reachTot]
   if (maxToTable != 0) {
     reachPerCent.forEach(function (el,i) {
       reachPerCent[i] = el/maxToTable;
@@ -349,36 +322,19 @@ function collectData() {
   
 
 
-
-  colorTable(reachPerCent);
-
-
-}
-
-var proc = 1;
-var secondColorVal = 'white';
-var secondColor = 'white';
-var firstColor = '#1982c4'; //'#0dcaf0' //'rgb(91, 192, 235)'
-
-
-function colorTable(rpc) {
-
-  //kalen
-  //kal.querySelector('tbody').querySelectorAll('tr')[3].querySelectorAll('td')[2].setAttribute('style','background: linear-gradient(to top,  rgb(91, 192, 235) 70%, white 30%')
-
   var numRows = kalen.querySelector('tbody').querySelectorAll('tr').length
 
   for (var a = 0 ; a < numRows; a++) {
     var colorRow = kalen.querySelector('tbody').querySelectorAll('tr')[a];
 
     for (var b = 0 ; b < 7; b++) {
-      proc = rpc[a*7+b]
+      proc = reachPerCent[a*7+b]
 
       secondColorVal = colorRow.querySelectorAll('td')[b].getAttribute('style')
       if (secondColorVal.includes('white')) {
         secondColor = 'white';
       } else {
-        secondColor = 'transparent'
+        secondColor = '#eee'
       }
        
       if (proc < 0.5) {
@@ -387,57 +343,15 @@ function colorTable(rpc) {
       } else {
         colorRow.querySelectorAll('td')[b]
           .setAttribute('style','background: linear-gradient(to top, ' + firstColor +' ' + 100*proc +  '%,'+ secondColor +' ' + 100*(1-proc) +'%')
-
       }
 
-      
     }
-
   }
 
-
-
-
-}
-
-
-
-
-
-
-
-
-
-/*dodawanie usuwanie wykresów*/
-function wykresMiejsce(rodzaj, dane) {//var  miejsce = document.querySelector(".chart-container");
-  var  miejsce = document.querySelector("#" + rodzaj);
-  var id = "lineChart" + rodzaj;
-  var daneDoWykresu = dane;
-
-
-  if (miejsce.childElementCount == 0){
-    miejsce.innerHTML = `<canvas id="` + id  + `" style="width:1200px; height:250px;"></canvas> `
-    wykresDane(id, daneDoWykresu)   
-  } else {
-
-    var wykres = document.createElement("canvas");
-    wykres.setAttribute("id", id);
-
-    let myPromise = new Promise(function () {
-    miejsce.removeChild(miejsce.firstElementChild);
-    });
-      
-    myPromise.then(miejsce.innerHTML = `<canvas id="` + id  + `" style="width:1200px; height:250px;"></canvas> `
-        ).then(sprawdzenie()).then(wykresDane(id, daneDoWykresu))
-
-    function sprawdzenie() {
-      if (document.querySelector("#" + rodzaj).childElementCount > 1)
-      {document.querySelector("#" + rodzaj).removeChild(document.querySelector("#" + rodzaj).lastElementChild);}
-      }
-  }
-
+  ['sum','div','regular','average','super'].forEach(deleteDetailedCharts)
 
 }
+/*************calculating reach ** end***************/
 
 
 
@@ -448,50 +362,346 @@ function wykresMiejsce(rodzaj, dane) {//var  miejsce = document.querySelector(".
 
 
 
+/*************adstock chart in info modal ** start***************/
+function chartForInfo1() {
 
+  var ctx1 = document.getElementById('chart-comparison').getContext('2d');
 
-
-/* wykres aktwyności i adstoków */
-function wykresDane2() {
-
-
-  var ctx2 = document.getElementById('chart-comparison').getContext('2d');
-
-
-  var daneLi = []
+  var dataLi = []
   var dataLines = [[0,0.3,0.15,0.08,0.04,0.02,0.01,0],
                  [0,0.45,0.14,0.04,0.01,0,0,0],
                  [0,0.6,0.12,0.02,0,0,0,0]]
 
-  legenda = ['reg','mid','sup']
-  var kolory = ['rgba(155, 197, 61)','rgba(255,140,0)','rgb(76, 0, 255)'];
+  legenda = ['regular','middle','super']
+  var colors = ['#8ac926','#ffca3a','#ff595e'];
+
   for (var s=0; s < dataLines.length; s++) {
-    daneLi.push({
-      label: legenda[s], //"zasięg",
+    dataLi.push({
+      label: legenda[s], 
       data: dataLines[s],
       fill: false,
-      borderColor: kolory[s], //'rgb(75, 192, 192)',
+      borderColor: colors[s], 
       tension: 0.3
     })
   }
+
+  const data = {
+    labels: ["1", "2", "3", "4", "5", "6", "7", "8"],
+    datasets: dataLi
+  }
+
+  //config
+  const config = {
+    type: 'line',
+    data,
+
+    options: {
+      elements: {
+                point:{
+                    radius: 0
+                }
+            },
+      responsive:  true,
+
+      legend: {
+        position: 'right', 
+        reverse: true,
+        onClick: (e) => e.stopPropagation(),
+        boxWidth: 50 
+              },
+
+      title: {
+                display: true,
+                //text: tytul
+            },
+
+      scales: {
+        grid: [{
+          borderWidth: 0.2,
+          display: false
+        }],
+
+        xAxes: [{
+          gridLines: {
+            color: 'rgba(128,128,128, 0.2)',
+            lineWidth: 0.5
+          }
+        }],
+
+        yAxes: [{
+                display: true,
+                ticks: {
+                    beginAtZero: true,
+                    //max: 1.1
+                },
+                //stacked: true,
+                gridLines: {
+                  color: 'rgba(128,128,128, 0.2)',
+                  lineWidth: 0.5
+                }
+            }],              
+    }
+  }
+  };
+
+  var myLineChart = new Chart(ctx1,
+    config);
+
+}
+/*************adstock chart in info modal ** end***************/
+
+
+
+
+/*************adstock chart in info modal ** start***************/
+function chartForInfo2() {
+
+  var ctx2 = document.getElementById('chart-overtime').getContext('2d');
+
+  var dataLi = []
+  var dataLines = [[1,0.45,0.20,0.09,0.04,0.02,0.01,0]]
+
+  legenda = ['reach']
+  var colors = ['#1982c4'];
+
+  for (var s=0; s < dataLines.length; s++) {
+    dataLi.push({
+      label: legenda[s], 
+      data: dataLines[s],
+      backgroundColor: colors[s],
+      lineTension: 0,
+      barPercentage: 1.25,
+    })
+  }
+
+  const data = {
+    labels: ["1", "2", "3", "4", "5", "6", "7", "8"],
+    datasets: dataLi
+  }
+
+  //config
+  const config = {
+    type: 'bar',
+    data,
+
+    options: {
+      elements: {
+                point:{
+                    radius: 0
+                }
+            },
+      responsive:  true,
+
+      legend: {
+        position: 'right', 
+      //  reverse: true,
+        onClick: (e) => e.stopPropagation(),
+        boxWidth: 50 
+              },
+
+      title: {
+                display: true,
+                //text: tytul
+            },
+
+      scales: {
+        grid: [{
+          borderWidth: 0.2,
+          display: false
+        }],
+
+        xAxes: [{
+          gridLines: {
+            color: 'rgba(128,128,128, 0.2)',
+            lineWidth: 0.5
+          }
+        }],
+
+        yAxes: [{
+                display: true,
+                ticks: {
+                    beginAtZero: true,
+                    stepSize: 0.2
+                    //max: 1.1
+                },
+                //stacked: true,
+                gridLines: {
+                  color: 'rgba(128,128,128, 0.2)',
+                  lineWidth: 0.5
+                }
+            }],              
+    }
+  }
+  };
+
+  var myLineChart = new Chart(ctx2,
+    config);
+
+}
+/*************adstock chart in info modal ** end***************/
+
+
+function addDetailedCharts(id, data) {
+  var  place = document.getElementById('chart' + id);
+  place.innerHTML = `<canvas id="` + id  + `" style="background: white; width:1200px; height:250px;"></canvas> `
+  additionalChart(id, data)
+}
+
+function deleteDetailedCharts(id) {
+  console.log('delete: ', id)
+  var delChart = document.getElementById(id);
+  if (delChart) {
+    delChart.remove()
+  }
+}
+
+function summaryChart() {
+  document.getElementById('additionalCharts').setAttribute('style','display:')
+  colorTable()
+  
+  if (maxToTable > 0) {
+    addDetailedCharts('sum', [reachTot])
+  } else {
+    deleteDetailedCharts('sum')
+  }
+
+  ['div','regular','average','super'].forEach(deleteDetailedCharts)
+
+}
+
+function extraCharts() {
+  document.getElementById('additionalCharts').setAttribute('style','display:')
+  colorTable()
+
+  var sumreg = sum(reachReg);
+  var summid = sum(reachMid);
+  var sumsup = sum(reachSup);
+  var numTypes = [(sumreg > 0) ? 1 : 0 , (summid > 0) ? 1 : 0, (sumsup > 0) ? 1 : 0];
+
+  if (maxToTable > 0) {
+    addDetailedCharts('sum', [reachTot])
+  }
+  if (sum(numTypes) == 1) {  
+    deleteDetailedCharts('div')
+    addDetailedCh(numTypes)
+  }
+  if (sum(numTypes) > 1) {
+    addDetailedCharts('div', [reachReg, reachMidAdd, reachSupAdd])
+    addDetailedCh(numTypes)
+  }
+
+}
+
+
+function addDetailedCh(numTypes) {
+  if (numTypes[0]){
+    addDetailedCharts('regular', [reachReg])
+  } else {
+    deleteDetailedCharts('regular')
+  } 
+
+  if (numTypes[1]) {
+    addDetailedCharts('average', [reachMidAdd,reachOnlyMid])
+  } else {
+    deleteDetailedCharts('average')
+  }
+  
+  if (numTypes[2]){
+    addDetailedCharts('super', [reachSupAdd,reachOnlySup])
+  } else {
+    deleteDetailedCharts('super');
+  }
+}
+
+
+
+/*************additional charts ** start***************/
+function additionalChart(id, chartData) {
+
+  console.log("funkcja wykres dane id " +id);
+  var ctx = document.getElementById(id).getContext('2d');
+  
+  var daneLiniowe = []
+  var chartTitle = []
+  var kolor = ['rgba(105, 0, 132, .2)', ]
+  var legenda = []
+
+
+  if (id == 'sum' ) {
+    kolor = ['#1982c4']
+    legenda = ['sum     ']
+    chartTitle = ['total reach']
+  } else if (id == 'div')  {
+    kolor = ['#8ac926','#ffca3a','#ff595e']
+    legenda = ['reg     ', 'mid     ', 'sup     ']
+    chartTitle = ['total reach divided by groups']
+
+    //correction for 2 groups
+    for (var s=2;s>=0;s--) {
+      if (!sum(chartData[s])) {
+        kolor.splice(s,1)
+        legenda.splice(s,1)
+        chartData.splice(s,1)
+      } 
+    }
+    
+  } else if (id == 'regular') {
+     kolor = ['#8ac926']
+     legenda = ['reg     ']
+     chartTitle = ['reach of regular posts']
+  } else if (id == 'average') {
+     kolor = ['#ffca3a','rgb(200,200,200)']
+     legenda = ['avg   ', 'avg lost']
+     chartTitle = ['reach of average promo posts and lost/cannibalized reach']
+
+     if (!sum(chartData[1])) {
+      kolor.splice(1,1)
+      legenda.splice(1,1)
+      chartData.splice(1,1)
+      chartTitle = ['reach of average promo posts']
+    } 
+
+  } else if (id == 'super') {
+     kolor = ['#ff595e','rgb(200,200,200)']
+     legenda = ['sup   ', 'sup lost']
+     chartTitle = ['reach of superpromo posts and lost/cannibalized reach']
+
+     if (!sum(chartData[1])) {
+      kolor.splice(1,1)
+      legenda.splice(1,1)
+      chartData.splice(1,1)
+      chartTitle = ['reach of superpromo posts']
+    } 
+
+  }
+
+  for (var s=0; s < chartData.length; s++) {
+    daneLiniowe.push({
+      label: legenda[s], //"zasięg",
+      data: chartData[s],
+      backgroundColor: kolor[s],
+      //borderColor: ['rgba(200, 99, 132, .7)',  ],
+      //borderWidth: 2,
+      lineTension: 0,
+      barPercentage: 1.25,
+    })
+  }
+
+
+
+  //setup
       const data = {
-        labels: ["1", "2", "3", "4", "5", "6", "7", "8"],
-        datasets: daneLi
+        labels: labels,
+        datasets: daneLiniowe
       }
 
   //config
       const config = {
-        type: 'line',
+        type: 'bar',
         data,
 
         options: {
-          elements: {
-                    point:{
-                        radius: 0
-                    }
-                },
-          responsive:  true,
-          //maintainAspectRatio: false,
+          responsive: true,
           legend: {
             position: 'right', // place legend on the right side of chart
             reverse: true,
@@ -500,17 +710,20 @@ function wykresDane2() {
                   },
           title: {
                     display: true,
-                    //text: tytul
+                    text: chartTitle,
+                    align: 'end',
                 },
 
           scales: {
             grid: [{
-              borderWidth: 0.2,
+              borderWidth: 0.1,
               display: false
             }],
 
             xAxes: [{
-
+              stacked: true, // this should be set to make the bars stacked
+              //barPercentage: 1.25,
+              //maxBarThickness: 100,
               gridLines: {
                 color: 'rgba(128,128,128, 0.2)',
                 lineWidth: 0.5
@@ -520,28 +733,44 @@ function wykresDane2() {
                     display: true,
                     ticks: {
                         beginAtZero: true,
-                        //max: 1.1
+                      
+                        max: maxToChart
                     },
-                    //stacked: true,
+                    stacked: true,
                     gridLines: {
                       color: 'rgba(128,128,128, 0.2)',
                       lineWidth: 0.5
                     }
-                }],              
+                }],
+                plugins: {
+                  legend: {
+                    display: false
+                  }
+                },
+       
         }
       }
       };
 
   //init block
-  var myLineChart = new Chart(ctx2,
+  var myLineChart = new Chart(ctx,
     config);
 
 }
+/*************additional charts ** end***************/
 
 
 
 
-function dodanieDoTabeli(element) {
+
+
+
+
+
+
+/*************for action settings ** start***************/
+
+function addingToTableWithSettings(element) {
   var power = 1;
   if (element.classList.contains('reg')) {
     power = 0;
@@ -551,35 +780,30 @@ function dodanieDoTabeli(element) {
 
   var touchKl = element.cloneNode(true);
   var touchKla = touchKl.classList;
-
   touchKla.remove('reg','mid','sup', 'btn','btn-light','btn-outline-dark','btn-sm','text-nowrap','overflow-hidden','additional','standard');
-  //console.log('klasa: ' + touchKla)
 
   var ikon = element.querySelector('svg').cloneNode(true);
-
   var newLine = document.createElement('tr')
   newLine.innerHTML = `<td scope="row" class="` + touchKla + `">` + ikon.outerHTML + element.innerText + `</td>
                        <td><input class="range-slider__range1 slider"  type="range" value="` + power + `" min="0" max="2" step="1"></td>
-                       <td><input class="range-slider__range2 slider"  type="range" value="1" min="0" max="2" step="1"></td>`
+                       <td><input class="range-slider__range2 slider"  type="range" value="1" min="0" max="2" step="1" disabled></td>`
   actionTable.querySelector('tbody').appendChild(newLine)
 
 }
 
-// get list of actions
 function listOfActions() {
   var list1 = document.querySelectorAll('.tasks span.standard');
   var list2 = document.querySelectorAll('.tasks span.additional');
   var actionTable = document.getElementById('actionTable');
   
   actionTable.querySelector('tbody').textContent = ''
-
-  list1.forEach(dodanieDoTabeli);
-  list2.forEach(dodanieDoTabeli);
+  
+  list1.forEach(addingToTableWithSettings);
+  list2.forEach(addingToTableWithSettings);
 }
 
 
 function saveChanges() {
-
   var listTouch = document.getElementById('actionTable').querySelector('tbody').querySelectorAll('tr');
 
   listTouch.forEach(elem => {
@@ -587,8 +811,6 @@ function saveChanges() {
       var className = elem.querySelectorAll('td')[0].classList.value
       var classVal = elem.querySelectorAll('td')[1].querySelector('input').value
       var types = ['reg','mid','sup']
-
-      //console.log(className, classVal, types[classVal])
 
       if (!document.querySelector('.tasks').querySelector('.' + className).classList.contains(types[classVal])) {
 
@@ -598,7 +820,7 @@ function saveChanges() {
         elemMod.classList.remove('sup')
         elemMod.classList.add(types[classVal])
 
-        var elemKal = document.querySelector('#kalendarz').querySelectorAll('.' + className)
+        var elemKal = document.querySelector('#calendar').querySelectorAll('.' + className)
         elemKal.forEach(element => {
           element.classList.remove('reg')
           element.classList.remove('mid')
@@ -611,6 +833,7 @@ function saveChanges() {
 
 }
 
+/*************for action settings ** end***************/
 
 
 
@@ -629,8 +852,7 @@ function saveChanges() {
 
 
 
-
-
+/*************for mobile ** start***************/
 
 var counter = 0
 
@@ -678,39 +900,16 @@ function adjustmentForMobile() {
     kalen.querySelectorAll('tr')[3].querySelectorAll('td')[5].appendChild(ttpost2)
     kalen.querySelectorAll('tr')[6].querySelectorAll('td')[5].appendChild(ttpost3)
 
-
-
-
-    /*//hide accordion
-    var but1 = document.getElementById('buttonStan')
-    but1.setAttribute('style','display: none')
-    Array.from(but1.children).forEach(b => {
-      b.setAttribute('style','display: none')
-    })
-    var but2 = document.getElementById('buttonAddi')
-    but2.setAttribute('style','display: none')
-    Array.from(but2.children).forEach(b => {
-      b.setAttribute('style','display: none')
-    })
-
-    //hide additional
-    document.querySelectorAll('.additional').forEach(b => {
-      b.setAttribute('style','display: none')
-    })*/
-    
-    //move button up
     document.getElementById('buttonForMobile').querySelector('button').setAttribute('style','background-color: var(--mypurple)')
     document.getElementById('buttonForDesktop').querySelector('button').setAttribute('style','display: none')
 
   }
 }
 
-
 function closeInfo() {
   document.getElementById('onmobile').classList.remove('show');
   document.getElementById('onmobile').setAttribute('style',"");
 }
-
 
 /*function isMob() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -731,45 +930,74 @@ document.addEventListener('touchstart', function(e) { //'touchmove'
 
 
 
+
+
+
+
 var myModal = new bootstrap.Modal(document.getElementById('miniTut'), {
   keyboard: false
 })
 
+
 myModal.toggle()
+
+
+
+
+
 
 
 //'use strict';
 
 document.addEventListener('DOMContentLoaded', function() {
-
-
+  
+  //month for selection
   var currentTime = new Date();
-  var miesiac = currentTime.getMonth()
+  var currentMonth = currentTime.getMonth()
+  var currentYear = currentTime.getFullYear()
   fillCalendar(currentTime);
-  wykresDane2();
 
-  //wybór miesiąca
-  document.querySelector('select').childNodes[1].innerHTML = months1[miesiac-1] + ' 2022'
-  document.querySelector('select').childNodes[3].innerHTML = months1[miesiac] + ' 2022'
-  document.querySelector('select').childNodes[5].innerHTML = months1[miesiac+1] + ' 2022'
-  document.querySelector('select').childNodes[7].innerHTML = months1[miesiac+2] + ' 2022'
+  var pastTime = new Date(currentYear, currentMonth-1,1)
+  var pastMonth = pastTime.getMonth()
+  var pastYear = pastTime.getFullYear()
+
+  var nextTime = new Date(currentYear, currentMonth+1,1)
+  var nextMonth = nextTime.getMonth()
+  var nextYear = nextTime.getFullYear()
+
+  var nextNextTime = new Date(currentYear, currentMonth+2,1)
+  var nextNextMonth = nextNextTime.getMonth()
+  var nextNextYear = nextNextTime.getFullYear()
+
+  
+  //list of months for selection
+  document.querySelector('select').childNodes[1].innerHTML = months1[pastMonth] + ' ' + pastYear
+  document.querySelector('select').childNodes[1].value = String(pastYear) + String(pastMonth)
+  document.querySelector('select').childNodes[3].innerHTML = months1[currentMonth] + ' ' + currentYear
+  document.querySelector('select').childNodes[3].value = String(currentYear) + String(currentMonth)
+  document.querySelector('select').childNodes[5].innerHTML = months1[nextMonth] + ' ' + nextYear
+  document.querySelector('select').childNodes[5].value = String(nextYear) + String(nextMonth)
+  document.querySelector('select').childNodes[7].innerHTML = months1[nextNextMonth] + ' ' + nextNextYear
+  document.querySelector('select').childNodes[7].value = String(nextNextYear) + String(nextNextMonth)
 
 
+  //adding class to the calendar
   var idid = 0
-// dodanie id
-  //var dniWKalendarzu = document.querySelector('table').children[1].querySelectorAll('td')
-  var dniWKalendarzu = document.getElementById('kalendarz').children[1].querySelectorAll('td')
-  function dodanieID(kwadracik) {
-    kwadracik.classList.add('position-relative')
-    kwadracik.id = 'zone' + idid;
+  var numDaysInCalendar = document.getElementById('calendar').children[1].querySelectorAll('td')
+  function addingID(square) {
+    square.classList.add('position-relative')
+    square.id = 'zone' + idid;
     idid++
   }
-  dniWKalendarzu.forEach(dodanieID)
+  numDaysInCalendar.forEach(addingID)
 
 
+  //adding chart for info section
+  chartForInfo1()
+  chartForInfo2();
 
-
-
+  
+ /******************DRAGULA********************************** */
   dragula([document.querySelector(".tasks"), 
   document.getElementById("zone0"),document.getElementById("zone1"),document.getElementById("zone2"),    
   document.getElementById("zone3"),document.getElementById("zone4"),document.getElementById("zone5"),
